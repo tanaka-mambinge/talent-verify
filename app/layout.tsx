@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import "@radix-ui/themes/styles.css";
+import { Container, Theme, ThemePanel } from "@radix-ui/themes";
+import IconProvider from "./iconProvider";
+import DashboardLayout from "./DashboardLayout";
+import { ToastProvider } from "@/components/AppToast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body style={{ margin: 0 }}>
+        <Theme
+          appearance="dark"
+          accentColor="lime"
+          grayColor="olive"
+          panelBackground="solid"
+          radius="full"
+        >
+          <IconProvider>
+            <ToastProvider>
+              <Container px={"2"}>
+                {/* <ThemePanel /> */}
+                <DashboardLayout>{children}</DashboardLayout>
+              </Container>
+            </ToastProvider>
+          </IconProvider>
+        </Theme>
+      </body>
     </html>
   );
 }
